@@ -3,6 +3,9 @@
 
 #include "User.h"
 #include <vector>
+#include <string>
+
+using namespace std;
 
 class Student: public User
 {

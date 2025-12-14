@@ -7,18 +7,17 @@ using namespace std;
 
 class User 
 {
-private:
+// protected rather than private so that child classes can access    
+protected:
     string userID;
     string username;
-    string userType;
 
 public:
     User();
-    User(string id, string name, string type);
+    User(string id, string name);
 
     string getUserID() const;
     string getUsername() const;
-    string getUserType() const;
 
     virtual void display() const;
 };
