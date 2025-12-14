@@ -3,7 +3,8 @@
 
 #include "CampusResource.h"
 
-class StudyRoom : public CampusResource {
+class StudyRoom : public CampusResource 
+{
 private:
     bool hasWhiteboard;
     int seats;

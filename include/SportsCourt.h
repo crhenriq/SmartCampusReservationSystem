@@ -6,7 +6,8 @@
 
 using namespace std;
 
-class SportsCourt : public CampusResource {
+class SportsCourt : public CampusResource 
+{
 private:
     string sport;
     bool indoor;
