@@ -14,3 +14,11 @@ void StudyRoom::display() const
     cout << "# Of Seats: " << seats << "\n";
     cout << "Whiteboard: " << (hasWhiteboard ? "Yes\n" : "No\n");
 }
+
+int StudyRoom::getNumberOfSeats() const {
+    return seats;
+}
+
+bool StudyRoom::whiteboardExists() const {
+    return hasWhiteboard;
+}

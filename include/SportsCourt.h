@@ -17,6 +17,8 @@ public:
     SportsCourt(string id, string name, string sport, bool indoor);
 
     void display() const;
+    bool isIndoors() const;
+
 };
 
 #endif

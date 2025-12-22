@@ -31,7 +31,7 @@ void Student::removeReservation(const string& reservationID)
 void Student::viewReservations() const
 {
     cout << "Reservations for " << username << ":\n";
-    for (int i = 0; reservationIDs.size(); i++)
+    for (int i = 0; i < reservationIDs.size(); i++)
     {
         cout << reservationIDs[i] << "\n";
     }

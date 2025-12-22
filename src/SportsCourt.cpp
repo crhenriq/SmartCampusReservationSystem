@@ -10,6 +10,10 @@ SportsCourt::SportsCourt(string id, string name, string sport, bool indoor) : Ca
 void SportsCourt::display() const 
 {
     cout << "Sports Court: " << name << "\n";
-    cout << "Sport: " << sport << "\n"; // should I do Court Type: instead of Sport:? Is it redundant?
+    cout << "Court Type: " << sport << "\n"; // should I do Court Type: instead of Sport:? Is it redundant?
     cout << "Indoor: " << (indoor ? "Yes\n" : "No\n");
+}
+
+bool SportsCourt::isIndoors() const {
+    return indoor;
 }

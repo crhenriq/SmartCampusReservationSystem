@@ -14,6 +14,8 @@ public:
     StudyRoom(string id, string name, bool hasWhiteboard, int seats);
 
     void display() const;
+    bool whiteboardExists() const;
+    int getNumberOfSeats() const;
 };
 
 #endif

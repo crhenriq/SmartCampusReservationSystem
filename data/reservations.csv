@@ -1,0 +1,3 @@
+reservationID,studentID,resourceID,date,startTime,endTime
+R001,S001,SR001,20251221,10,12
+R002,S002,SC001,20251221,14,16
