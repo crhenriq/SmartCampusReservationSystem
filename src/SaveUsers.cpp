@@ -27,7 +27,7 @@ void SaveUsers::saveToFile(const std::string& filename, const std::vector<User*>
 
 void SaveUsers::loadFromFile(const string& filename, vector<User*>& users) {
     // Clear existing vector and delete pointers
-    for (User* u : users) delete u;
+    //for (User* u : users) delete u;
     users.clear();
 
     std::ifstream file(filename);
@@ -46,11 +46,13 @@ void SaveUsers::loadFromFile(const string& filename, vector<User*>& users) {
 
         if (type == "Student") {
             users.push_back(new Student(idStr, username));
-        } else if (type == "Admin") {
+        } 
+        else if (type == "Administrator") {
             users.push_back(new Administrator(idStr, username));
-        } else {
-            users.push_back(new User(idStr, username));
-        }
+        } 
+        //else {
+            //users.push_back(new User(idStr, username));
+        //}
     }
 
     file.close();

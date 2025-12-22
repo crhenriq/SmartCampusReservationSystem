@@ -1,34 +1,38 @@
 #include "SaveCampusResources.h"
 #include "StudyRoom.h"
+#include "SportsCourt.h"
+#include <fstream>
 #include <sstream>
+#include <iostream>
 
+using namespace std;
+
+// Save all resources to CSV
 void SaveCampusResources::saveToFile(const string& filename, const vector<CampusResource*>& resources) {
     ofstream file(filename);
     if (!file.is_open()) return;
 
-    //csv header
-    file << "type,resourceID,name,attr1,attr2\n";
+    file << "type,resourceID,name,attr1,attr2\n"; // header
 
     for (CampusResource* r : resources) {
         if (SportsCourt* sc = dynamic_cast<SportsCourt*>(r)) {
-            file << "SportsCourt" << "," 
-                 << sc->getID() << "," 
-                 << sc->getName() << "," 
-                 << (sc->isIndoors() ? "1" : "0") << "," 
-                 << sc->getName() << "\n";
+            file << "SportsCourt" << ","
+                 << sc->getID() << ","
+                 << sc->getName() << ","
+                 << sc->getSport() << ","        // sport
+                 << (sc->isIndoors() ? "Yes" : "No") << "\n"; // indoor
         }
         else if (StudyRoom* sr = dynamic_cast<StudyRoom*>(r)) {
-            file << "StudyRoom" << "," 
-                 << sr->getID() << "," 
-                 << sr->getName() << "," 
-                 << (sr->whiteboardExists() ? "1" : "0") << "," 
-                 << sr->getNumberOfSeats() << "\n";
+            file << "StudyRoom" << ","
+                 << sr->getID() << ","
+                 << sr->getName() << ","
+                 << (sr->whiteboardExists() ? "Yes" : "No") << "," // whiteboard
+                 << sr->getNumberOfSeats() << "\n";                // seats
         }
         else {
-            // for any other campus resource
-            file << "CampusResource" << "," 
-                 << r->getID() << "," 
-                 << r->getName() << ",,\n";
+            file << "CampusResource" << ","
+                 << r->getID() << ","
+                 << r->getName() << "," << "\n";
         }
     }
 
@@ -37,8 +41,6 @@ void SaveCampusResources::saveToFile(const string& filename, const vector<Campus
 
 // Load resources from CSV
 void SaveCampusResources::loadFromFile(const string& filename, vector<CampusResource*>& resources) {
-    // Clean up existing pointers
-    for (CampusResource* r : resources) delete r;
     resources.clear();
 
     ifstream file(filename);
@@ -58,13 +60,18 @@ void SaveCampusResources::loadFromFile(const string& filename, vector<CampusReso
         getline(ss, attr2, ',');
 
         if (type == "SportsCourt") {
-            string sport = attr2;
-            bool indoor = (attr1 == "1");
+            string sport = attr1;                   
+            bool indoor = (attr2 == "Yes");          
             resources.push_back(new SportsCourt(resourceID, name, sport, indoor));
         }
         else if (type == "StudyRoom") {
-            bool whiteboard = (attr1 == "1");
-            int seats = stoi(attr2);
+            bool whiteboard = (attr1 == "Yes");     
+            int seats = 0;
+            try {
+                seats = stoi(attr2);                 
+            } catch (...) {
+                seats = 0;
+            }
             resources.push_back(new StudyRoom(resourceID, name, whiteboard, seats));
         }
         else {

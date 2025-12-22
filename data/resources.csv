@@ -1,5 +1,5 @@
 type,resourceID,name,attr1,attr2
-StudyRoom,SR001,Study Room 1,1,6
-StudyRoom,SR002,Study Room 2,0,4
-SportsCourt,SC001,Basketball Court 1,1,Basketball
-SportsCourt,SC002,Tennis Court,0,Tennis
+StudyRoom,SR001,Study Room 1,Yes,6
+StudyRoom,SR002,Study Room 2,No,4
+SportsCourt,SC001,Basketball Court,Basketball,Yes
+SportsCourt,SC002,Tennis Court,Tennis,No

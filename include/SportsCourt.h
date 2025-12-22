@@ -18,6 +18,7 @@ public:
 
     void display() const;
     bool isIndoors() const;
+    string getSport() const;
 
 };
 

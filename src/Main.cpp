@@ -10,17 +10,17 @@ using namespace std;
 
 int main() {
 
-    // Step 1: Initialize system
+    // Initialize system
     ReservationSystem system;
 
 
-    // Step 2: Load resources from CSV
+    // Load resources from CSV
     vector<CampusResource*> resources;
     SaveCampusResources::loadFromFile("data/resources.csv", resources);
     for (auto r : resources) system.addResource(r);
 
 
-    // Step 3: Load users from CSV
+    // Load users from CSV
     vector<User*> users;
     SaveUsers::loadFromFile("data/users.csv", users);
     for (auto u : users) {
@@ -28,7 +28,7 @@ int main() {
         else if (dynamic_cast<Administrator*>(u)) system.addAdministrator(dynamic_cast<Administrator*>(u));
     }
 
-    // Step 4: Load reservations from CSV
+    // Load reservations from CSV
     vector<Reservation> reservations;
     SaveReservations::loadFromFile("data/reservations.csv", reservations);
     for (auto &res : reservations) {
@@ -36,12 +36,12 @@ int main() {
     }
 
 
-    // Step 5: List all resources
+    // List all resources
     cout << "\n--- All Resources ---\n";
     system.listAllResources();
 
 
-    // Step 6: Search resources by name and ID
+    // Search resources by name and ID
     cout << "\n--- Search Resource by Name 'Study Room 1' ---\n";
     CampusResource* searchName = system.searchResourceByName("Study Room 1");
     if (searchName) searchName->display();
@@ -51,7 +51,7 @@ int main() {
     if (searchID) searchID->display();
 
 
-    // Step 7: Filter by type
+    // Filter by type
     cout << "\n--- Filter Resources by Type 'StudyRoom' ---\n";
     system.filterByType("StudyRoom");
 
@@ -59,40 +59,40 @@ int main() {
     system.filterByType("SportsCourt");
 
 
-    // Step 8: View reservations for student
+    // View reservations for student
     cout << "\n--- View Reservations for Student S001 ---\n";
     system.viewReservationsForStudent("S001");
 
 
-    // Step 9: Test creating a reservation with conflict
+    // Test creating a reservation with conflict
     cout << "\n--- Attempt Conflicting Reservation ---\n";
-    bool conflict = system.createReservation("S001", "SR001", 20251221, 10, 12);
+    bool conflict = system.createReservation("S001", "SR001", 12212025, 10, 12);
     cout << (conflict ? "Reservation created!\n" : "Conflict detected!\n");
 
 
     // Step 10: Test creating a valid reservation
     cout << "\n--- Create Valid Reservation ---\n";
-    bool success = system.createReservation("S001", "SC002", 20251221, 12, 14);
+    bool success = system.createReservation("S001", "SC002", 12212025, 12, 14);
     cout << (success ? "Reservation created!\n" : "Conflict detected!\n");
 
 
-    // Step 11: Cancel a reservation
+    // Cancel a reservation
     cout << "\n--- Cancel Reservation R002 for Student S002 ---\n";
-    system.cancelReservation("R002", "S002");
+    system.cancelReservation("RES-2", "S002");
 
 
-    // Step 12: Modify a reservation
+    // Modify a reservation
     cout << "\n--- Modify Reservation R001 for Student S001 ---\n";
-    system.modifyReservation("R001", "S001", 20251221, 9, 11);
+    system.modifyReservation("RES-1", "S001", 12212025, 9, 11);
 
 
-    // Step 13: Check resource availability
+    // Check resource availability
     cout << "\n--- Check Resource Availability ---\n";
-    bool available = system.isResourceAvailable("SC001", 20251221, 14, 16);
+    bool available = system.isResourceAvailable("SC001", 12212025, 14, 16);
     cout << "SC001 available from 14:00 to 16:00? " << (available ? "Yes" : "No") << "\n";
 
 
-    // Step 14: Save all data
+    // Save all data
     SaveCampusResources::saveToFile("data/resources.csv", resources);
     SaveUsers::saveToFile("data/users.csv", users);
     SaveReservations::saveToFile("data/reservations.csv", reservations);

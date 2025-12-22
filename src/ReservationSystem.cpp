@@ -94,10 +94,28 @@ void ReservationSystem::filterByType(const string& type) const
 
 void ReservationSystem::filterByAttribute(const string& key, const string& value) const
 {
-    cout << "---- Filter By Attribute: "
-        << key << " = " << value << " ----\n";
+    cout << "---- Filter By Attribute: " << key << " = " << value << " ----\n";
+    bool found = false;
 
-  
+    for (auto r : resources) {
+        if (StudyRoom* sr = dynamic_cast<StudyRoom*>(r)) {
+            if ((key == "Whiteboard" && ((value == "Yes" && sr->whiteboardExists()) || (value == "No" && !sr->whiteboardExists()))) ||
+                (key == "Seats" && stoi(value) <= sr->getNumberOfSeats())) {
+                sr->display();
+                cout << "-------------------------------\n";
+                found = true;
+            }
+        } else if (SportsCourt* sc = dynamic_cast<SportsCourt*>(r)) {
+            if ((key == "Indoor" && ((value == "Yes" && sc->isIndoors()) || (value == "No" && !sc->isIndoors()))) ||
+                (key == "CourtType" && sc->getName() == value)) { // you can also add getter for sport if needed
+                sc->display();
+                cout << "-------------------------------\n";
+                found = true;
+            }
+        }
+    }
+
+    if (!found) cout << "No resources found matching attribute.\n";
 }
 
 // ---------------- VIEW RESERVATIONS ----------------
